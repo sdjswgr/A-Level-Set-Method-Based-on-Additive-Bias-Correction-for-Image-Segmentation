@@ -5,4 +5,6 @@ Keywords: Image segmentation; Intensity inhomogeneity; Additive bias correction;
 
 
 ### Get Started
-To get started run `Demo_ABC`. To try other images: `Demo_ABC(1)` etc. 15 images are provided. 
+* To get started run `Demo_ABC`. 
+* To try other images: `Demo_ABC(1)` etc. 15 images are provided. 
+* To interactively try different ROIs: `Demo_ABC(12,true)`

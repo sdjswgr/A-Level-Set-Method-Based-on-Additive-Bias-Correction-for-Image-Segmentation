@@ -1,18 +1,17 @@
-function Demo_ABC(imgID)
+function Demo_ABC(imgID,drawBox)
+   % Demo of a level set method based on additive bias correction for image segmentation
    %
-   % function Demo_ABC(imgID)
+   % function Demo_ABC(imgID,drawBox)
    %
    % Inputs
    % imgID - A scalar between 1 and 15 indicating which demo image to load. 15 images are provided. 
+   % drawBox - optional. false by default. If true we interactively draw box rather than use
+   %           the default values in ABC.demo_ROIs
    %
-   % 
-   %% A Level Set Method Based on Additive Bias Correction for Image Segmentation
-   % Author:Guirong Weng,(School of Mechanical and Electric Engineering, Soochow University, Suzhou 215021, China)
-   % All rights researved by Guirong Weng, who formulated the model, designed
-   % and implemented the algorithm in the above paper.
-   % E-mail:wgr@suda.edu.cn, 2020.2.12
-   % ESWA_115633,2021
-   % Expert Systems With Applications
+   % Author:
+   % Guirong Weng,
+   % School of Mechanical and Electric Engineering, Soochow University, Suzhou 215021, China
+
 
    %% Model theory:
    % Image observed:i(x)=b(x)+r(x)+n(x);
@@ -24,6 +23,10 @@ function Demo_ABC(imgID)
 
    if nargin<1
       imgID = 15 ;   % image ID = 1 ~15
+   end
+
+   if nargin<2
+      drawBox=false;
    end
 
 
@@ -44,7 +47,11 @@ function Demo_ABC(imgID)
 
 
    % Get initial contour for the demo image based on hard-coded settings
-   initialLSF = ABC.demo_ROIs(Img1,imgID);
+   if drawBox
+      initialLSF = ABC.interactiveROI(Img1);
+   else
+      initialLSF = ABC.demo_ROIs(Img1,imgID);
+   end
 
 
    % Parameters
@@ -151,3 +158,14 @@ function Demo_ABC(imgID)
    axis off equal
    title('Reflectance image');
 
+
+
+
+
+   %% A Level Set Method Based on Additive Bias Correction for Image Segmentation
+   % Author:Guirong Weng,(School of Mechanical and Electric Engineering, Soochow University, Suzhou 215021, China)
+   % All rights researved by Guirong Weng, who formulated the model, designed
+   % and implemented the algorithm in the above paper.
+   % E-mail:wgr@suda.edu.cn, 2020.2.12
+   % ESWA_115633,2021
+   % Expert Systems With Applications

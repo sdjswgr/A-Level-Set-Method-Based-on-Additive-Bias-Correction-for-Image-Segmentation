@@ -92,7 +92,7 @@ function Demo_ABC(imgID)
 
    lastU=ones(size(Img1));
    maxIter=500; %Max iterations
-   bailoutDelta = 1E-6; % Used to decide when to break out of the loop
+   bailoutDelta = 5E-5; % Used to decide when to break out of the loop
    for  n = 1:maxIter
 
          if n>1
@@ -106,7 +106,8 @@ function Demo_ABC(imgID)
          d = lastU-u;
 
          % We break out if the difference between the images scaled by the number of pixels identified breaches thresh
-         if sum(abs(d(:))) / sum(u(:)) < bailoutDelta 
+         bailVal = sum(abs(d(:))) / sum(u(:));
+         if bailVal < bailoutDelta 
             fprintf('Breaking at %d iterations\n',n)
             break
          end

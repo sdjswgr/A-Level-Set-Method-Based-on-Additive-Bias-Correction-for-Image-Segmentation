@@ -42,11 +42,13 @@ function Demo_ABC(imgID)
       return
    end
 
-   c0 = 1
+   c0 = 1;
    initialLSF = ones(size(Img1(:,:,1))).*c0;
 
    % Three parameter settings, iteration, initial contour. These are all hard-coded for each image
    [sigma,alfa,iterNum,k,initialLSF] = ABC_Switch(imgID,c0,initialLSF);
+
+   maxIter=500;
 
    Img = double(Img1(:,:,1));
    Img = log(1+Img/255);               % rescale the image intensities
@@ -82,18 +84,31 @@ function Demo_ABC(imgID)
    c=[]; % To be the handle the contour plot
    hold on
 
-   for  n = 1:iterNum
-        [u,r,b1,b2] = ABC_2D(Img,u,Ksigma,KONE,r,beta,alfa,epsilon,timestep);
-        u = tanh(7*u);                                %  constant 7,in Eq.(26)
-        u = imfilter(u,G,'symmetric');                        %     in Eq.(27)
+   lastU=ones(size(Img1));
+   bailoutDelta = 1E-6;;
+   for  n = 1:maxIter
 
+         if n>1
+            lastU = u;
+         end
 
-        if mod(n,10) == 0
-           delete(c)
-           [~,c]=contour(u,[0 0],'g');
-           title(n);
-           drawnow
-        end
+         [u,r,b1,b2] = ABC_2D(Img,u,Ksigma,KONE,r,beta,alfa,epsilon,timestep);
+
+         u = tanh(7*u);                                %  constant 7,in Eq.(26)
+         u = imfilter(u,G,'symmetric');                        %     in Eq.(27)
+         d = lastU-u;
+
+         if sum(abs(d(:))) / sum(u(:)) < bailoutDelta
+            fprintf('Breaking at %d iterations\n',n)
+            break
+         end
+
+         if mod(n,10) == 0
+            delete(c)
+            [~,c]=contour(u,[0 0],'g');
+            title(n);
+            drawnow
+         end
    end
 
    delete(c)

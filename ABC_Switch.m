@@ -56,7 +56,7 @@ switch imgID
            sigma=4;alfa=3;k=7;iterNum=10;
            initialLSF(15:80,25:90) = -c0;
            initialLSF(130:190,185:250) = -c0;
-    case 15        
+    case 15
            sigma=4;alfa=3;k=7;iterNum=150;
            initialLSF(120:170,100:335) = -c0;
 

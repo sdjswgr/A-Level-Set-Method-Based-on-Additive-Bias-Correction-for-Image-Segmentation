@@ -42,11 +42,9 @@ function Demo_ABC(imgID)
       return
    end
 
-   c0 = 1;
-   initialLSF = ones(size(Img1(:,:,1))).*c0; %This is a mask (initial contour) from which we grow. 
 
    % Get initial contour for each image
-   initialLSF = ABC_Switch(imgID,c0,initialLSF);
+   initialLSF = ABC.demo_ROIs(Img1,imgID);
 
 
    % Parameters

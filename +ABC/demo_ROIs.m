@@ -1,6 +1,14 @@
-function initialLSF = ABC_Switch(imgID,c0,initialLSF)
-
+function initialLSF = demo_ROIs(Img1,imgID)
 % Hard-coded box settings for processing each image. 
+%
+% function initialLSF = demo_ROIs(Img1,imgID)
+% 
+% Inputs
+% Img1 - the image matrix we want to get a mask from
+% imgID - the ID of the image file name
+
+c0 = 1;
+initialLSF = ones(size(Img1(:,:,1))).*c0; %This is a mask (initial contour) from which we grow. 
 
 switch imgID
 

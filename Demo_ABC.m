@@ -3,7 +3,7 @@ function Demo_ABC(imgID)
    % function Demo_ABC(imgID)
    %
    % Inputs
-   % imgID - A scalar between 1 and 15 indicating which demo image to load. 
+   % imgID - A scalar between 1 and 15 indicating which demo image to load. 15 images are provided. 
    %
    % 
    %% A Level Set Method Based on Additive Bias Correction for Image Segmentation

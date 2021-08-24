@@ -5,6 +5,7 @@ function Demo_ABC(imgID,drawBox)
    %
    % Inputs
    % imgID - A scalar between 1 and 15 indicating which demo image to load. 15 images are provided. 
+   %         If imgID is a matrix then we treat it as an image and invite use to draw a ROI. 
    % drawBox - optional. false by default. If true we interactively draw box rather than use
    %           the default values in ABC.demo_ROIs
    %
@@ -22,7 +23,7 @@ function Demo_ABC(imgID,drawBox)
 
 
    if nargin<1
-      imgID = 15 ;   % image ID = 1 ~15
+      imgID = 15 ; % image ID = 1 ~15
    end
 
    if nargin<2
@@ -40,8 +41,11 @@ function Demo_ABC(imgID,drawBox)
          fprintf('Can not find demo image at %s\n', imgPath)
          return
       end
+   elseif ismatrix(imgID)
+      Img1 = imgID;
+      drawBox = true;
    else
-      fprintf('imgID must be a scalar\n')
+      fprintf('imgID must be a scalar or a matrix\n')
       return
    end
 

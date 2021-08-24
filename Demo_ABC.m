@@ -43,7 +43,7 @@ function Demo_ABC(imgID)
    end
 
 
-   % Get initial contour for each image
+   % Get initial contour for the demo image based on hard-coded settings
    initialLSF = ABC.demo_ROIs(Img1,imgID);
 
 

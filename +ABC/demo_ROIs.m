@@ -2,7 +2,10 @@ function initialLSF = demo_ROIs(Img1,imgID)
 % Hard-coded box settings for processing each image. 
 %
 % function initialLSF = demo_ROIs(Img1,imgID)
-% 
+%
+% Purpose
+% Return initial contour for the demo image based on hard-coded settings.
+
 % Inputs
 % Img1 - the image matrix we want to get a mask from
 % imgID - the ID of the image file name

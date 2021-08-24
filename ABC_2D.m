@@ -1,14 +1,19 @@
 function [u,r,b1,b2] = ABC_2D(Img,u,Ksigma,KONE,r,beta,alfa,epsilon,timestep)
+     % Level Set Method Based on Additive Bias Correction for Image Segmentation
+     %
+     % function [u,r,b1,b2] = ABC_2D(Img,u,Ksigma,KONE,r,beta,alfa,epsilon,timestep)
+     %
+     % Inputs
+     %
+     % Outputs
+     %
+     % Author
+     % Guirong Weng
+     % School of Mechanical and Electric Engineering
+     % Soochow University
+     % Suzhou 215021
+     % China
 
-%% **********************************************************************
-% A Level Set Method Based on Additive Bias Correction for Image Segmentation
-% Author:Guirong Weng,(School of Mechanical and Electric Engineering, Soochow University, Suzhou 215021, China)
-% All rights researved by Guirong Weng, who formulated the model, designed
-% and implemented the algorithm in the above paper.
-% E-mail:wgr@suda.edu.cn, 2020.2.12
-% ESWA_115633,2021
-% Expert Systems With Applications
-%% ***********************************************************************
 
      Hu = 0.5*(1+(2/pi)*atan(u./epsilon));
      % ----Calculation method of bias field fitting b1, b2
@@ -37,3 +42,15 @@ function [u,r,b1,b2] = ABC_2D(Img,u,Ksigma,KONE,r,beta,alfa,epsilon,timestep)
 %-------------------------------------------------------------------------------------------   
 end
 
+
+
+
+%% **********************************************************************
+% A Level Set Method Based on Additive Bias Correction for Image Segmentation
+% Author:Guirong Weng,(School of Mechanical and Electric Engineering, Soochow University, Suzhou 215021, China)
+% All rights researved by Guirong Weng, who formulated the model, designed
+% and implemented the algorithm in the above paper.
+% E-mail:wgr@suda.edu.cn, 2020.2.12
+% ESWA_115633,2021
+% Expert Systems With Applications
+%% ***********************************************************************

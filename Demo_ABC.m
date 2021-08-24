@@ -43,12 +43,17 @@ function Demo_ABC(imgID)
    end
 
    c0 = 1;
-   initialLSF = ones(size(Img1(:,:,1))).*c0;
+   initialLSF = ones(size(Img1(:,:,1))).*c0; %This is a mask (initial contour) from which we grow. 
 
-   % Three parameter settings, iteration, initial contour. These are all hard-coded for each image
-   [sigma,alfa,iterNum,k,initialLSF] = ABC_Switch(imgID,c0,initialLSF);
+   % Get initial contour for each image
+   initialLSF = ABC_Switch(imgID,c0,initialLSF);
 
-   maxIter=500;
+
+   % Parameters
+   tSD = 4;
+   alfa=3;
+
+
 
    Img = double(Img1(:,:,1));
    Img = log(1+Img/255);               % rescale the image intensities
@@ -57,10 +62,13 @@ function Demo_ABC(imgID)
    Img = 255*(Img-fmin)/(fmax-fmin);  % Normalize Img to the range [0,255]
    timestep = 1;                       % constant 1
    epsilon = 1;                        % constant 1
+
+   k=7;
    G = fspecial('average',k);          % Create predefined filter
+
    u = initialLSF;
    r = zeros(size(Img));               % Initial the reflection image
-   Ksigma = fspecial('gaussian',round(2*sigma)*2+1,sigma); % Gaussian kernel
+   Ksigma = fspecial('gaussian',round(2*tSD)*2+1,tSD); % Gaussian kernel
    KONE = conv2(ones(size(Img)),Ksigma,'same');              % G*1, in Eq. (20)
    beta = std2(Img);                   % Standard deviation of image in Eq.(25)
 
@@ -85,7 +93,8 @@ function Demo_ABC(imgID)
    hold on
 
    lastU=ones(size(Img1));
-   bailoutDelta = 1E-6;;
+   maxIter=500; %Max iterations
+   bailoutDelta = 1E-6; % Used to decide when to break out of the loop
    for  n = 1:maxIter
 
          if n>1
@@ -98,7 +107,8 @@ function Demo_ABC(imgID)
          u = imfilter(u,G,'symmetric');                        %     in Eq.(27)
          d = lastU-u;
 
-         if sum(abs(d(:))) / sum(u(:)) < bailoutDelta
+         % We break out if the difference between the images scaled by the number of pixels identified breaches thresh
+         if sum(abs(d(:))) / sum(u(:)) < bailoutDelta 
             fprintf('Breaking at %d iterations\n',n)
             break
          end
@@ -140,5 +150,5 @@ function Demo_ABC(imgID)
    imagesc(r)
    colormap(gray)
    axis off equal
-   title('ireflectance image');
+   title('Reflectance image');
 
